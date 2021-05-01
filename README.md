@@ -1,2 +1,2 @@
-# web page
+<!DOCTYPE html>
  
