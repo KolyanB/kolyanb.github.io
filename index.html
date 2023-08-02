@@ -81,8 +81,8 @@
                 } else {
                     d = 360 - (Math.acos((y)/l)/Math.PI * 180);
                 }
-                cur.style.top = e.offsetY-10 + 'px';
-                cur.style.left = e.offsetX-10 + 'px';
+                cur.style.top = e.offsetY-17 + 'px';
+                cur.style.left = e.offsetX-17 + 'px';
                 // alert("H: "+d+"\nS: "+(l*100)+"%\nL: "+(l*50+50)+"%\nX: "+e.offsetX+"\nY: "+e.offsetY+"")
                 wheel.style.boxShadow = "0px 0px 100px 0px hsla("+d+", "+(l*100)+"%, 50%, 1)";
                 cur.style.background = "hsl("+d+", "+(l*100)+"%, 50%)";
