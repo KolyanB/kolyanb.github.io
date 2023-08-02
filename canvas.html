@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 25px;
+        }
+        #wheel{
+            margin-top: 100px;
+            background-image: url('https://i.ibb.co/27zxS96/ww.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            border: 0px solid white;
+            border-radius: 100%;
+            
+            width: 100%;
+            box-shadow: 0px 0px 50px 0px hsla(0, 0%, 0%, 0.5);
+            transition:0.1s;
+            touch-action: none;
+        }
+        #cur{
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            border: 2px solid white;
+            position: relative;
+            box-shadow: 0px 0px 10px 
+              0px hsla(0, 0%, 0%, 0.4);
+            
+        }
+      
+    </style>
+</head>
+<body>
+    <div id="wheel">
+        <div id="cur"></div>
+    </div>
+  <div>
+    
+  </div>
+    <script>
+
+        height = parseInt(getComputedStyle(wheel).width);
+        wheel.style.height = height + 'px';
+
+        
+        // ctx = canvas.getContext("2d");
+        
+        // centre = Math.floor(height/2);
+
+        // for (let x = 0; x < height; x++) {
+        //     for (let y = 0; y < height; y++) {
+                
+        //         if (Math.sqrt((x-centre)*(x-centre)+(y-centre)*(y-centre)) < centre) {
+        //             l = Math.sqrt((x-centre)*(x-centre)+(y-centre)*(y-centre));
+
+        //             d = (Math.acos((y-centre)/l)/Math.PI * 180+180)
+        //             if (x-centre < 0) {
+        //                 ctx.fillStyle = "hsl("+d+", "+ l / centre * 100 +"%, "+ ((-50)*(l / centre) + 100) +"%)";
+        //             }
+        //             else{
+        //                 ctx.fillStyle = "hsl("+(360-d)+", "+ l / centre * 100 +"%, "+ ((-50)*(l / centre) + 100) +"%)";
+        //             }
+        //             ctx.fillRect(x, y, 1, 1);
+        //         }
+                
+        //     }
+        // }
+
+        wheel.onpointermove= function(e){
+            x = 2*e.offsetX/height-1;
+            y = (-2)*e.offsetY/height+1;
+            l = Math.sqrt(x*x+y*y);
+            if (l <= 1) {
+                if (x  > 0) {
+                    d = (Math.acos((y)/l)/Math.PI * 180);
+                } else {
+                    d = 360 - (Math.acos((y)/l)/Math.PI * 180);
+                }
+                cur.style.top = e.offsetY-10 + 'px';
+                cur.style.left = e.offsetX-10 + 'px';
+                // alert("H: "+d+"\nS: "+(l*100)+"%\nL: "+(l*50+50)+"%\nX: "+e.offsetX+"\nY: "+e.offsetY+"")
+                wheel.style.boxShadow = "0px 0px 100px 0px hsla("+d+", "+(l*100)+"%, 50%, 1)";
+                cur.style.background = "hsl("+d+", "+(l*100)+"%, 50%)";
+            }
+            
+        }
+      wheel.onpointerdown = function() {
+        
+        cur.style.transform = 'scale(4)';
+      }
+      wheel.onpointerup = function() {
+        cur.style.transition = '0.2s';
+        cur.style.transform = 'scale(1)';
+        setTimeout(() => cur.style.transition = '0.0s', 200);
+      }
+
+
+    </script>
+</body>
+</html>
