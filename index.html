@@ -7,6 +7,10 @@
     <style>
         body{
             margin: 25px;
+            font-family: arial;
+            margin-bottom: 160px;
+            background: #1d1d1d;
+            color: #bfbfbf;
         }
         #wheel{
             margin-top: 100px;
@@ -18,27 +22,165 @@
             border-radius: 100%;
             
             width: 100%;
-            box-shadow: 0px 0px 50px 0px hsla(0, 0%, 0%, 0.5);
             transition:0.1s;
             touch-action: none;
         }
+        /*********** Baseline, reset styles ***********/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 25rem;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #161616;
+  border-radius: 0.5rem;
+  height: 0.2rem;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -4px; /* Centers thumb on the track */
+  background-color: #bfbfbf;
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: 3px solid #bfbfbf;
+  outline-offset: 0.125rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb{
+  outline: 3px solid #bfbfbf;
+  outline-offset: 0.125rem;
+}
         #cur{
             width: 30px;
             height: 30px;
             border-radius: 100%;
             border: 2px solid white;
             position: relative;
-            box-shadow: 0px 0px 10px 
-              0px hsla(0, 0%, 0%, 0.4);
+            box-shadow: 0px 0px 10px 0px hsla(0, 0%, 0%, 0.4);
             
+            
+        }
+        #bar{
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 20px;
+            background: #1d1d1d;
+            border-top: 1px solid #333;
+            /* box-shadow: 0px 0px 30px 0px rgb(255, 255, 255); */
+            
+            }
+        
+
+        #bl{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .md{
+            box-shadow: 0 0  15px -10px #000;
+            padding: 8px;
+            vertical-align: center;
+            text-align: center;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 30.2px;
+            font-size: medium;
+            align-items: center;
+            background: #222;
+            
+            
+        
+        }
+        #ip{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: none;
+            /* box-shadow: 0 0  15px -5px #000; */
+            /* background-color: #eee; */
+            text-align: center;
+            font-size: x-large;
+            font-family: monospace;
+            border: 0;
+            padding: 10px;
+            transition: 0.2s;
+            border-bottom: 1px solid #333;
+            border-radius: 0;
+            color: #bfbfbf;
+            background: #1d1d1d83;
+        }
+        #ip:focus{
+            background-color: #22222284;
+            border-radius: 10px;
+            left: 50px;
+            right: 50px;
+            
+            border-bottom: 0px solid gray;
+
+        }
+        .txt{
+            font-size: large;
         }
       
     </style>
 </head>
 <body>
+    <input type="text" name="ip" id="ip" value="192.168.1.101">
+    <div id="bar">
+      <input type="range" name="br" max="255" style="width: 100%; margin-bottom: 30px;" oninput="set(this.value, 'br')">
+        
+        <div id="bl">
+            <div class="md" onclick="set(0, 'md')">Выкл</div>
+            <div class="md" onclick="set(1, 'md')">Радуга</div>
+            <div class="md" onclick="set(2, 'md')">Цвет</div>
+            <div class="md" onclick="set(3, 'md')">Комета</div>
+        </div>
+    </div>
+
+
+
     <div id="wheel">
         <div id="cur"></div>
     </div>
+    
+    <table style="width: 100%; margin-top: 20px;">
+        <td ><span class="txt">Разброс</span></td>
+        <td style="text-align: right;">100%</td>
+    </table>
+    <input type="range" name="pa" max="255" style="width: 100%; margin-top: 0px;" oninput="set(this.value, 'pa')">
+
+    <table style="width: 100%; margin-top: 20px;">
+        <td ><span class="txt">Скорость</span></td>
+        <td style="text-align: right;">100%</td>
+    </table>
+    <input type="range" name="psp" max="15" style="width: 100%; margin-top: 0px;" oninput="set(this.value, 'psp')">
+
+    <table style="width: 100%; margin-top: 20px;">
+        <td ><span class="txt">Размер</span></td>
+        <td style="text-align: right;">100%</td>
+    </table>
+    <input type="range" name="ps" max="15" style="width: 100%; margin-top: 0px;" oninput="set(this.value, 'ps')">
   <div>
     
   </div>
@@ -71,6 +213,22 @@
         //     }
         // }
 
+        // br.oninput = function(){
+        
+        //     let xhr = new XMLHttpRequest();
+        //     let url = new URL('http:/'+ip.value+'/br');
+        //     url.searchParams.set('br', br.value.toString());
+        //     xhr.open('GET', url)
+        //     xhr.send();
+        // }
+        function set(val, par){
+            let xhr = new XMLHttpRequest();
+            let url = new URL('http:/'+ip.value+'/'+par+'');
+            url.searchParams.set(par, val.toString());
+            xhr.open('GET', url)
+            xhr.send();
+        }
+
         wheel.onpointermove= function(e){
             x = 2*e.offsetX/height-1;
             y = (-2)*e.offsetY/height+1;
@@ -84,26 +242,33 @@
                 cur.style.top = e.offsetY-17 + 'px';
                 cur.style.left = e.offsetX-17 + 'px';
                 // alert("H: "+d+"\nS: "+(l*100)+"%\nL: "+(l*50+50)+"%\nX: "+e.offsetX+"\nY: "+e.offsetY+"")
-                wheel.style.boxShadow = "0px 0px 100px 0px hsla("+d+", "+(l*100)+"%, 50%, 1)";
+                wheel.style.boxShadow = "0px 0px 80px -30px hsla("+d+", "+(l*100)+"%, 50%, 1)";
                 cur.style.background = "hsl("+d+", "+(l*100)+"%, 50%)";
+
+                
+                let xhr = new XMLHttpRequest();
+                let url = new URL('http:/'+ip.value+'/ph');
+                url.searchParams.set('ph', (d/360*255).toString());
+                url.searchParams.set('psat', Math.round(l*255).toString());
+                xhr.open('GET', url)
+                xhr.send();
             }
             
         }
       wheel.onpointerdown = function() {
         
-        cur.style.transform = 'scale(4)';
+        // cur.style.transform = 'scale(4)';
+        cur.style.width = '90px';
+        cur.style.height = '90px';
+        cur.style.transform = 'translate(-30px, -30px)'
       }
       wheel.onpointerup = function() {
         cur.style.transition = '0.2s';
-        cur.style.transform = 'scale(1)';
+        cur.style.width = '30px';
+        cur.style.height = '30px';
+        cur.style.transform = 'translate(0px, 0px)'
         setTimeout(() => cur.style.transition = '0.0s', 200);
-        alert("H: "+d+"\nS: "+(l*100))
 
-        let xhr = new XMLHttpRequest();
-        let url = new URL('http://192.168.1.103/br');
-        url.searchParams.set('br', d.toString());
-        xhr.open('GET', url)
-        xhr.send();
       }
 
 
