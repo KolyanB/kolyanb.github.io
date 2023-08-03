@@ -74,8 +74,8 @@
         wheel.onpointermove= function(e){
             x = 2*e.offsetX/height-1;
             y = (-2)*e.offsetY/height+1;
-            l = Math.sqrt(x*x+y*y);
-            if (l <= 1) {
+            if (Math.sqrt(x*x+y*y) <= 1) {
+                l = Math.sqrt(x*x+y*y);
                 if (x  > 0) {
                     d = (Math.acos((y)/l)/Math.PI * 180);
                 } else {
@@ -97,6 +97,13 @@
         cur.style.transition = '0.2s';
         cur.style.transform = 'scale(1)';
         setTimeout(() => cur.style.transition = '0.0s', 200);
+        alert("H: "+d+"\nS: "+(l*100))
+
+        let xhr = new XMLHttpRequest();
+        let url = new URL('http://192.168.1.103/br');
+        url.searchParams.set('br', d.toString());
+        xhr.open('GET', url)
+        xhr.send();
       }
 
 
