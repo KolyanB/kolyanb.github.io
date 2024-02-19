@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 2741px;
+            color: white;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        #wheel{
+            margin-top: 150px;
+            margin-bottom: 200px;
+            
+            background-image: url('https://i.ibb.co/27zxS96/ww.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            border: 0px solid white;
+            border-radius: 100%;
+            
+            margin-left: 10%;
+            width: 80%;
+            box-shadow: 0px 0px 50px 0px hsla(0, 0%, 0%, 0.5);
+            touch-action: none;
+            transition: 0.3s;
+        }
+        #cur{
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            border: 2px solid white;
+            position: relative;
+            box-shadow: 0px 0px 10px 
+              0px hsla(0, 0%, 0%, 0.4);
+            
+        }
+        p{text-align: center;}
+        #bgr{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 0px 0px, hsla(0,20%,30%,1) 0%, #110f0f 80%);
+        }
+        #nav{
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding-top: 32px;
+            background: linear-gradient(0deg, rgba(17,15,15,1) 70%, rgba(0,212,255,0) 100%);
+
+        }
+        td{padding: 0;}
+        #nav #ob{
+            background: rgba(118, 118, 128, 0.24);
+            padding: 16px;
+            margin-bottom: 16px;
+            margin-left: 16px;
+            margin-right: 16px;
+            border-radius: 20px;
+        }
+        table{
+            width: 100%;
+            padding: 16px;
+        }
+
+        #but{
+            background: rgba(118, 118, 128, 0.24);
+            padding: 2px;
+            border-radius: 20px;
+            margin-right: 16px;
+        }
+        a{
+            background: rgba(99, 99, 102, 1);
+            padding: 14px;
+            padding-left: 10px;
+            padding-right: 10px;
+            display: inline-block;
+            border-radius: 18px;
+        }
+
+input[type=range] {
+  -webkit-appearance: none;
+  border-radius: 20px;
+  height: 50px;
+  
+  background: linear-gradient(90deg, rgba(99,99,102,1) 60%, rgba(118, 118, 128, 0.24) 60%);
+  margin: 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  height: 50px;
+  width: 50px;
+  border-radius: 0px;
+  background: #ffffff00;
+  -webkit-appearance: none;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <div id="bgr"></div>
+    <div id="wheel">
+        <div id="col" style="height: 100%;width: 100%; position: relative;z-index: 1"></div>
+        <div id="cur"></div>
+    </div>
+    <p id="dbg">ddd</p>
+    <p>Тут будут остальные настройки</p>
+
+    <div id="nav">
+        <table><tr>
+            <td style="white-space: nowrap;width: 1%;"><div id="but">
+                <a>Цвет</a>
+                <a>Огни</a>
+                <a>Радуга</a>
+            </div></td>
+            <td><input type="range" name="" id="br" style="width: 100%;" oninput="setrange(this)"></td>
+            <!-- <td><div id="but" style="margin-left: 16px; padding: 16px;">Яркость</div></td> -->
+        </tr></table>
+        <div id="ob">Абоба <hr> Дополнительная информация <hr><button>Какая то</button></div>
+    </div>
+  <div>
+    
+  </div>
+    <script>
+        // alert(window.innerWidth)
+        //alert(parseFloat(getComputedStyle(but).height));
+        br.style.height = parseFloat(getComputedStyle(but).height) + 4 + 'px'
+        height = parseFloat(getComputedStyle(wheel).width);
+        wheel.style.height = height + 'px';
+
+        
+        // ctx = canvas.getContext("2d");
+        
+        // centre = Math.floor(height/2);
+
+        // for (let x = 0; x < height; x++) {
+        //     for (let y = 0; y < height; y++) {
+                
+        //         if (Math.sqrt((x-centre)*(x-centre)+(y-centre)*(y-centre)) < centre) {
+        //             l = Math.sqrt((x-centre)*(x-centre)+(y-centre)*(y-centre));
+
+        //             d = (Math.acos((y-centre)/l)/Math.PI * 180+180)
+        //             if (x-centre < 0) {
+        //                 ctx.fillStyle = "hsl("+d+", "+ l / centre * 100 +"%, "+ ((-50)*(l / centre) + 100) +"%)";
+        //             }
+        //             else{
+        //                 ctx.fillStyle = "hsl("+(360-d)+", "+ l / centre * 100 +"%, "+ ((-50)*(l / centre) + 100) +"%)";
+        //             }
+        //             ctx.fillRect(x, y, 1, 1);
+        //         }
+                
+        //     }
+        // }
+        window.addEventListener('scroll', function() {
+            dbg.innerHTML = pageYOffset + 'px';
+            if (pageYOffset > 0) {
+                wheel.style.marginBottom = '0px'
+                wheel.style.marginTop = '32px'
+                wheel.style.filter = 'blur(5px)'
+                wheel.style.transform = 'scale(0.8)'
+                wheel.style.opacity = '0.6'
+                cur.style.opacity = '0'
+            }
+            if (pageYOffset <= 0) {
+                wheel.style.marginBottom = '200px'
+                wheel.style.filter = 'blur(0px)'
+                wheel.style.marginTop = '150px'
+                wheel.style.transform = 'scale(1)'
+                wheel.style.opacity = '1'
+                cur.style.opacity = '1'
+            }
+        });
+
+        col.onpointermove= function(e){
+            // wheel.style.transform = 'scale(2)';
+            // bg.style.transform = 'scale(0.5)';
+            x = 2*e.offsetX/height-1;
+            y = (-2)*e.offsetY/height+1;
+            l = Math.sqrt(x*x+y*y);
+            if (l > 1) {
+                x = x / l;
+                y = y / l;
+                l = 1;
+            }
+
+            
+            dbg.innerHTML = (-Math.cos(l*Math.PI/2)+1)*100;
+            if (x  > 0) {
+                d = (Math.acos((y)/l)/Math.PI * 180);
+            } else {
+                d = 360 - (Math.acos((y)/l)/Math.PI * 180);
+            }
+            cur.style.top = (-(y-1)*height/2)-17-height*1 + 'px';
+            cur.style.left = ((x+1)*height/2)-17 + 'px';
+            // alert("H: "+d+"\nS: "+(l*100)+"%\nL: "+(l*50+50)+"%\nX: "+e.offsetX+"\nY: "+e.offsetY+"")
+            // wheel.style.boxShadow = "0px 0px 100px 0px hsla("+d+", "+((-Math.cos(l*Math.PI/2)+1)*100)+"%, 50%, 1)";
+            cur.style.background = "hsl("+d+", "+((-Math.cos(l*Math.PI/2)+1)*100)+"%, 50%)";
+            bgr.style.background = "radial-gradient(circle at 0px 0px, hsla("+d+","+((-Math.cos(l*Math.PI/2)+1)*20)+"%,30%,1) 0%, rgba(17, 15, 15, 1) 80%)";
+
+            
+            let xhr = new XMLHttpRequest();
+            let url = new URL('http://192.168.1.103/ph');
+            url.searchParams.set('ph', d.toString());
+            url.searchParams.set('psat', Math.round(l*255).toString());
+            xhr.open('GET', url)
+            xhr.send();
+            
+        }
+      col.onpointerdown = function() {
+        
+        cur.style.transform = 'scale(4)';
+      }
+      col.onpointerup = function() {
+        cur.style.transition = '0.2s';
+        cur.style.transform = 'scale(1)';
+        setTimeout(() => cur.style.transition = '0.0s', 200);
+
+      }
+
+      function setrange(a){
+        //alert(a.value)
+        br.style.background = "linear-gradient(90deg, rgba(99,99,102,1) "+a.value+"%, rgba(118, 118, 128, 0.24) "+a.value+"%)"
+      }
+    </script>
+</body>
+</html>
